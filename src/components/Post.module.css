@@ -52,18 +52,67 @@
 }
 
 .content p {
-  color: var(--gray-300);
+  color: var(--gray-500);
   line-height: 1.6;
   margin-top: 1rem;
 }
 
 .content a {
-  color: var(--green-300);
+  color: var(--green-500);
   text-decoration: none;
   font-weight: bold;
   line-height: 1.6;
 }
 
 .content a:hover {
-  color: var(--green-500);
+  color: var(--green-300);
+}
+
+.comentForm {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--gray-600);
+}
+
+.comentForm>strong {
+  line-height: 1.6;
+  color: var(--gray-100);
+}
+
+.comentForm textarea {
+  width: 100%;
+  resize: none;
+  border: 0;
+  background: var(--gray-900);
+  color: var(--gray-100);
+  height: 6rem;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  outline: none;
+
+}
+
+.comentForm textarea::placeholder {
+  color: #7C7C8A;
+}
+
+.comentForm textarea:hover {
+  outline: 1px solid var(--green-500);
+}
+
+.comentForm button[type="submit"] {
+  padding: 1rem 1.5rem 0.875rem;
+  background: var(--green-500);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  margin-top: 1rem;
+  transition: 0.2s background-color;
+}
+
+.comentForm button[type="submit"]:hover {
+  background: var(--green-300);
 }

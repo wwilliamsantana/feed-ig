@@ -24,12 +24,14 @@ export function Post() {
           <a href="#">#rocketseat</a>
         </p>
       </div>
-      {/* 
-      <footer>
-        <strong>Deixe seu feedback</strong>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <button>Publicar</button>
-      </footer> */}
+
+      <form className={styles.comentForm}>
+        <strong>Deixe seu Feedback</strong>
+        <textarea
+          placeholder="Escreva um comentário..."
+        />
+        <button type="submit">Publicar</button>
+      </form>
     </article>
   )
 }
