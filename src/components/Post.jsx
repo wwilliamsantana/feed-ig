@@ -3,10 +3,16 @@ import { Comment } from "./Comment"
 import { format, formatDistanceToNow } from "date-fns"
 import ptBr from "date-fns/locale/pt-BR"
 import styles from "./Post.module.css"
+import { useState } from "react"
 
 
 
 export function Post({ author, content, publishedAt }) {
+  const [comments, setComments] = useState([
+    "Olá Galera!!"
+  ])
+  const [formNewComment, setformNewComment] = useState("")
+
   const publishedAtFormat = format(publishedAt, "dd 'de' LLLL 'de' yyyy", {
     locale: ptBr
   })
@@ -15,6 +21,24 @@ export function Post({ author, content, publishedAt }) {
     addSuffix: true,
     locale: ptBr
   })
+
+  function handleSubmitForm() {
+    event.preventDefault()
+    setComments(comment => [...comment, formNewComment])
+    setformNewComment("")
+  }
+
+  function handleNewComment() {
+    setformNewComment(event.target.value)
+  }
+
+  function deleteComment(commentToDelete) {
+    const newListDelete = comments.filter(comment => {
+      return comment != commentToDelete
+    })
+
+    setComments(newListDelete)
+  }
 
   return (
     <article className={styles.post}>
@@ -39,9 +63,11 @@ export function Post({ author, content, publishedAt }) {
         })}
       </div>
 
-      <form className={styles.comentForm}>
+      <form onSubmit={handleSubmitForm} className={styles.comentForm}>
         <strong>Deixe seu Feedback</strong>
         <textarea
+          onChange={handleNewComment}
+          value={formNewComment}
           placeholder="Escreva um comentário..."
         />
         <footer>
@@ -50,9 +76,9 @@ export function Post({ author, content, publishedAt }) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+          return <Comment content={comment} key={comment} onDeleteComment={deleteComment} />
+        })}
       </div>
     </article>
   )
