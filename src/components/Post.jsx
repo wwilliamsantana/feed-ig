@@ -44,7 +44,9 @@ export function Post({ author, content, publishedAt }) {
         <textarea
           placeholder="Escreva um comentário..."
         />
-        <button type="submit">Publicar</button>
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
       </form>
 
       <div className={styles.commentList}>
