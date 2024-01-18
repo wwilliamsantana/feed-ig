@@ -29,7 +29,12 @@ export function Post({ author, content, publishedAt }) {
   }
 
   function handleNewComment() {
+    event.target.setCustomValidity("")
     setformNewComment(event.target.value)
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity("Esse comentário está vazio!")
   }
 
   function deleteComment(commentToDelete) {
@@ -39,6 +44,8 @@ export function Post({ author, content, publishedAt }) {
 
     setComments(newListDelete)
   }
+
+  const isDisabledComment = formNewComment.length === 0
 
   return (
     <article className={styles.post}>
@@ -66,12 +73,15 @@ export function Post({ author, content, publishedAt }) {
       <form onSubmit={handleSubmitForm} className={styles.comentForm}>
         <strong>Deixe seu Feedback</strong>
         <textarea
+          name="comment"
+          onInvalid={handleNewCommentInvalid}
+          required
           onChange={handleNewComment}
           value={formNewComment}
           placeholder="Escreva um comentário..."
         />
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isDisabledComment} >Publicar</button>
         </footer>
       </form>
 
