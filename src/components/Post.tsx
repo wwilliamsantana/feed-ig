@@ -1,43 +1,59 @@
 import { Avatar } from "./Avatar"
 import { Comment } from "./Comment"
 import { format, formatDistanceToNow } from "date-fns"
-import ptBr from "date-fns/locale/pt-BR"
 import styles from "./Post.module.css"
-import { useState } from "react"
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react"
+import { ptBR } from "date-fns/locale"
 
 
 
-export function Post({ author, content, publishedAt }) {
+
+export interface PostProps {
+  id?: number
+  author: {
+    avatarUrl: string
+    name: string
+    role: string
+  }
+  content: {
+    type: "link" | "paragraph"
+    content: string
+  }[]
+  publishedAt: Date
+
+}
+
+export function Post({ author, content, publishedAt }: PostProps) {
   const [comments, setComments] = useState([
     "Olá Galera!!"
   ])
   const [formNewComment, setformNewComment] = useState("")
 
   const publishedAtFormat = format(publishedAt, "dd 'de' LLLL 'de' yyyy", {
-    locale: ptBr
+    locale: ptBR
   })
 
   const publishedToNow = formatDistanceToNow(publishedAt, {
     addSuffix: true,
-    locale: ptBr
+    locale: ptBR
   })
 
-  function handleSubmitForm() {
+  function handleSubmitForm(event: FormEvent) {
     event.preventDefault()
     setComments(comment => [...comment, formNewComment])
     setformNewComment("")
   }
 
-  function handleNewComment() {
+  function handleNewComment(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("")
     setformNewComment(event.target.value)
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("Esse comentário está vazio!")
   }
 
-  function deleteComment(commentToDelete) {
+  function deleteComment(commentToDelete: string) {
     const newListDelete = comments.filter(comment => {
       return comment != commentToDelete
     })
